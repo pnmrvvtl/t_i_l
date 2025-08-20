@@ -1,0 +1,96 @@
+/* Seamless, GPU-accelerated sliding gradient:
+   - We tile the gradient (repeat-x) on a 200%-wide ::before layer.
+   - We animate translateX from 0% to -50% (one tile width), so the loop is perfect.
+*/
+
+@keyframes gb_slide {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+:root {
+  --gb-radius: 12px;
+  --gb-speed: 6s; /* adjust speed here */
+  --gb-font: 1rem;
+  --gb-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  /* Define the gradient once so you can theme it per button if needed */
+  --gb-gradient: linear-gradient(
+    90deg,
+    #ff6ec7 0%,
+    #6ee7ff 20%,
+    #7cff9e 40%,
+    #ffd86e 60%,
+    #d07cff 80%,
+    #ff6ec7 100% /* end == start for a seamless tile */
+  );
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--gb-radius);
+  cursor: pointer;
+  overflow: hidden;
+
+  color: #fff;
+  font-weight: 600;
+  font-size: var(--gb-font);
+  background: #111; /* fallback */
+  box-shadow: var(--gb-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  /* Gradient layer that slides via transform */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    /* Make the layer wider so we can slide one full tile */
+    width: 200%;
+    height: 100%;
+
+    /* Tile the gradient horizontally so sliding never shows edges */
+    background-image: var(--gb-gradient);
+    background-size: 50% 100%;   /* one tile = 50% of this layer = 100% of the button */
+    background-repeat: repeat-x; /* seamless tiling */
+
+    animation: gb_slide var(--gb-speed) linear infinite;
+    will-change: transform;
+  }
+
+  /* Keep text above the gradient */
+  & > span,
+  & > .label {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .button::before { animation: none !important; }
+}
