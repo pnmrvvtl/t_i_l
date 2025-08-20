@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Base folder where all projects + templates live
+BASE_DIR="/home/user/Projects/til/t_i_l"
+
+# Templates
+FRONT_TEMPLATE="$BASE_DIR/template-front"
+BACK_TEMPLATE="$BASE_DIR/template-back"
+
+TYPE=$1        # f | b (or frontend | backend)
+PROJECT_NAME=$2
+
+if [ -z "$TYPE" ] || [ -z "$PROJECT_NAME" ]; then
+  echo "Usage: newproject <f|b> <project-name>"
+  exit 1
+fi
+
+# Choose template
+if [[ "$TYPE" = "f" || "$TYPE" = "frontend" ]]; then
+  TEMPLATE="$FRONT_TEMPLATE"
+elif [[ "$TYPE" = "b" || "$TYPE" = "backend" ]]; then
+  TEMPLATE="$BACK_TEMPLATE"
+else
+  echo "❌ Unknown type: $TYPE (use 'f' or 'b')"
+  exit 1
+fi
+
+# Create project folder inside BASE_DIR
+TARGET_DIR="$BASE_DIR/$PROJECT_NAME"
+mkdir -p "$TARGET_DIR"
+
+# Copy files (including hidden ones)
+cp -r "$TEMPLATE"/. "$TARGET_DIR"
+
+echo "✅ Project '$PROJECT_NAME' created in $BASE_DIR from $TYPE template."
+
