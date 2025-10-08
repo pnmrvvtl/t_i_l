@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Base folder where all projects + templates live
-BASE_DIR="/home/user/Projects/til/t_i_l"
+#BASE_DIR="/home/user/Projects/til/t_i_l"
+#for windows
+BASE_DIR="/d/Projects/t_i_l"
+
 
 # Templates
 FRONT_TEMPLATE="$BASE_DIR/template-front"

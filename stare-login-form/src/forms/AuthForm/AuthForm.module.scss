@@ -1,0 +1,382 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.charactersSection {
+  flex: 1;
+  position: relative;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.character {
+  position: absolute;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+
+  &.shaking {
+    animation: headShake 0.8s ease-in-out;
+  }
+}
+
+.eyes {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.eye {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.blink {
+    animation: blink 0.15s ease-in-out;
+  }
+}
+
+.pupil {
+  width: 12px;
+  height: 12px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+  }
+}
+
+.mouth {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 8px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+
+  &.open {
+    height: 30px;
+    animation: mouthOpen 0.3s ease;
+  }
+}
+
+.teeth {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 8px;
+  background: repeating-linear-gradient(
+          90deg,
+          white 0px,
+          white 4px,
+          transparent 4px,
+          transparent 8px
+  );
+}
+
+.beak {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 20px solid #f97316;
+}
+
+.dots {
+  position: absolute;
+  top: 50px;
+  left: 30px;
+  display: flex;
+  gap: 15px;
+
+  span {
+    width: 8px;
+    height: 8px;
+    background: #1a1a1a;
+    border-radius: 50%;
+  }
+}
+
+.formSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: white;
+}
+
+.formCard {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.plusIcon {
+  position: absolute;
+  top: -60px;
+  right: 40px;
+  font-size: 48px;
+  font-weight: 300;
+  color: #1a1a1a;
+  transform: rotate(15deg);
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 32px;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+
+    &.checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+        cursor: pointer;
+      }
+    }
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+}
+
+.passwordWrapper {
+  position: relative;
+
+  input {
+    padding-right: 48px;
+  }
+}
+
+.eyeButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #6b7280;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #374151;
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+.forgotPassword {
+  float: right;
+  font-size: 14px;
+  color: #6366f1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #4f46e5;
+  }
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px 24px;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 24px;
+  margin-bottom: 16px;
+
+  &:hover {
+    background: #2a2a2a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.googleButton {
+  width: 100%;
+  padding: 12px 24px;
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  &:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.signupText {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  color: #6b7280;
+
+  a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #4f46e5;
+    }
+  }
+}
+
+@keyframes headShake {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-8px) rotate(-2deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(8px) rotate(2deg);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    height: 24px;
+  }
+  50% {
+    height: 2px;
+  }
+}
+
+@keyframes mouthOpen {
+  0% {
+    height: 8px;
+  }
+  50% {
+    height: 35px;
+  }
+  100% {
+    height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .charactersSection {
+    min-height: 300px;
+    flex: none;
+  }
+
+  .formSection {
+    flex: none;
+    min-height: auto;
+  }
+
+  .character {
+    transform: scale(0.6);
+  }
+}
